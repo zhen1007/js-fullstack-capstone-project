@@ -17,16 +17,13 @@ router.get("/", async (req, res) => {
 
 router.get("/:id", async (req, res) => {
   try {
-    // Task 1: Connect to MongoDB and store connection to db constant
-    // const db = {{insert code here}}
+    const db = await connectToDatabase();
 
-    // Task 2: use the collection() method to retrieve the gift collection
-    // {{insert code here}}
+    const collection = db.collection("gifts");
 
     const id = req.params.id;
 
-    // Task 3: Find a specific gift by ID using the collection.fineOne method and store in constant called gift
-    // {{insert code here}}
+    const gift = await collection.findOne({ id: id });
 
     if (!gift) {
       return res.status(404).send("Gift not found");
